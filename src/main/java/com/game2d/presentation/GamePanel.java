@@ -1,5 +1,7 @@
 package com.game2d.presentation;
 
+import com.game2d.domain.Player;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,7 +10,7 @@ public class GamePanel extends JPanel implements Runnable {
     // Screen settings
     private final int originalTileSize = 16; //16*16 pixels
     private final int scale = 2;
-    private final int tileSize = originalTileSize * scale; //48*48 pixels
+    public final int tileSize = originalTileSize * scale; //48*48 pixels
     private final int maxScreenColumn = 16;
     private final int maxScreenRow = 12;
     final int screenWidth = tileSize * maxScreenColumn; // 768 pixels
@@ -19,7 +21,8 @@ public class GamePanel extends JPanel implements Runnable {
     final int FPS = 60;
 
     KeyHandler keyHandler = new KeyHandler();
-    Thread gameThread = null;
+    Thread gameThread;
+    Player player = new Player(this, keyHandler);
 
     // Set players default position
     int playerX = 100;
@@ -28,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.CYAN);
+        this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
@@ -91,9 +94,9 @@ public class GamePanel extends JPanel implements Runnable {
                 drawCount++;
             }
 
-            if (timer >=1000000000){
+            if (timer >= 1000000000) {
                 System.out.println("FPS: " + drawCount);
-                drawCount =0;
+                drawCount = 0;
                 timer = 0;
             }
 
@@ -101,23 +104,13 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        if (keyHandler.upPressed) { // keyHandler.upPressed == true
-
-            playerY -= speedPlayer;
-        } else if (keyHandler.downPressed) {
-            playerY += speedPlayer;
-        } else if (keyHandler.leftPressed) {
-            playerX -= speedPlayer;
-        } else if (keyHandler.rightPressed) {
-            playerX += speedPlayer;
-        }
+        player.update();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g; // Casting, because, Graphics2D has some functions than Graphics
-        g2.setColor(Color.black);
-        g2.fillRect(playerX, playerY, tileSize, tileSize);
+        player.draw(g2);
         g2.dispose(); // The progrman can works whitout this, but is a good practice
     }
 
