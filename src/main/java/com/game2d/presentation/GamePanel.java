@@ -11,8 +11,8 @@ public class GamePanel extends JPanel implements Runnable {
     private final int tileSize = originalTileSize * scale; //48*48 pixels
     private final int maxScreenColumn = 16;
     private final int maxScreenRow = 12;
-    private final int screenWidth = tileSize * maxScreenColumn; // 768 pixels
-    private final int screenHeight = tileSize * maxScreenRow; // 576 pixels
+    final int screenWidth = tileSize * maxScreenColumn; // 768 pixels
+    final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
 
     // FPS
@@ -39,26 +39,64 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
-    @Override
+//    @Override
+//    public void run() {
+//        while (gameThread != null) {
+//            double drawInterval = (double) 1000000000 / FPS; // We can draw in the screen every 0.016666 second
+//            double nextDrawTime = System.nanoTime() + drawInterval;
+//
+//            // 1.UPDATE: Update information such as character positions
+//            update();
+//
+//            // 2. DRAW: Draw the screen the update information
+//            repaint();
+//
+//            try {
+//                double remainingTime = nextDrawTime - System.nanoTime();
+//                remainingTime = remainingTime / 1000000;
+//                if (remainingTime < 0) {
+//                    remainingTime = 0;
+//                }
+//               Thread.sleep((long) remainingTime);
+//                //nextDrawTime += drawInterval;
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//    }
+
+
     public void run() {
+
+        double drawInterval = (double) 1000000000 / FPS; // We can draw in the screen every 0.016666 second
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+        long timer = 0;
+        int drawCount = 0;
+
         while (gameThread != null) {
-            double drawInterval = (double) 1000000000 / FPS; // We can draw in the screen every 0.016666 second
-            double nextDrawTime = System.nanoTime() + drawInterval;
 
-            // 1.UPDATE: Update information such as character positions
-            update();
+            currentTime = System.nanoTime();
+            delta += (currentTime - lastTime) / drawInterval;
+            timer += (currentTime - lastTime);
+            lastTime = currentTime;
+            if (delta >= 1) {
+                // 1.UPDATE: Update information such as character positions
+                update();
 
-            // 2. DRAW: Draw the screen the update information
-            repaint();
-
-
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                Thread.sleep((long) remainingTime);
-
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                // 2. DRAW: Draw the screen the update information
+                repaint();
+                delta--;
+                drawCount++;
             }
+
+            if (timer >=1000000000){
+                System.out.println("FPS: " + drawCount);
+                drawCount =0;
+                timer = 0;
+            }
+
         }
     }
 
