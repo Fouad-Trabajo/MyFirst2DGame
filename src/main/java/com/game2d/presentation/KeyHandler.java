@@ -19,13 +19,13 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_W) {
             upPressed = true;
         }
-        if (code == KeyEvent.VK_A) {
+        else if (code == KeyEvent.VK_A) {
             leftPressed = true;
         }
-        if (code == KeyEvent.VK_D) {
+        else if (code == KeyEvent.VK_D) {
             rightPressed = true;
         }
-        if (code == KeyEvent.VK_S) {
+        else if (code == KeyEvent.VK_S) {
             downPressed = true;
         }
     }

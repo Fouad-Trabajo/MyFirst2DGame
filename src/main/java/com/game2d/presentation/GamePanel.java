@@ -24,14 +24,11 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     Player player = new Player(this, keyHandler);
 
-    // Set players default position
-    int playerX = 100;
-    int playerY = 100;
-    int speedPlayer = 4;
+
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.BLACK);
+        this.setBackground(Color.red);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
@@ -109,9 +106,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g; // Casting, because, Graphics2D has some functions than Graphics
+        Graphics2D g2 = (Graphics2D) g; // Casting because, Graphics2D has some functions than class Graphics
         player.draw(g2);
-        g2.dispose(); // The progrman can works whitout this, but is a good practice
+        g2.dispose(); // The program can work without this, but it's a good practice
     }
 
 
