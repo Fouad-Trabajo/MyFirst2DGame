@@ -41,7 +41,7 @@ public class Player extends Entity {
             } else if (keyHandler.leftPressed) {
                 direction = "left";
                 x -= speed;
-            } else if (keyHandler.rightPressed) {
+            } else {
                 direction = "right";
                 x += speed;
             }
@@ -118,18 +118,18 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
         try {
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/up1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/up2.png")));
-            up3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/up3.png")));
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/down1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/down2.png")));
-            down3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/down3.png")));
-            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/right1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/right2.png")));
-            right3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/right3.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/left1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/left2.png")));
-            left3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/left3.png")));
+            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/drawable/up1.png")));
+            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/drawable/up2.png")));
+            up3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/drawable/up3.png")));
+            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/drawable/down1.png")));
+            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/drawable/down2.png")));
+            down3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/drawable/down3.png")));
+            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/drawable/right1.png")));
+            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/drawable/right2.png")));
+            right3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/drawable/right3.png")));
+            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/drawable/left1.png")));
+            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/drawable/left2.png")));
+            left3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/drawable/left3.png")));
         } catch (IOException e) {
             System.out.println("Error al cargar las imágenes del personaje: " + e.getMessage());
             e.printStackTrace();
